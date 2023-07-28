@@ -2,24 +2,25 @@ import { AppDataSource } from "../../data-source";
 import { Cliente } from "../../entities/cliente.entities";
 import { AppError } from "../../errors/AppError";
 import { TClienteResponse } from "../../interfaces/cliente.interfaces";
-import { clienteSchemaResponse } from "../../schemas/cliente.schema";
+import { listClienteSchemaResponse } from "../../schemas/cliente.schema";
 
 const listClienteService = async (
   userId: string
-): Promise<TClienteResponse> => {
+): Promise<TClienteResponse[]> => {
   const clienteRepo = AppDataSource.getRepository(Cliente);
 
-  const cliente = await clienteRepo.findOne({
-    where: {
-      id: userId,
+  const cliente = await clienteRepo.find({
+    relations: {
+      contatos: true,
     },
   });
+  console.log(cliente);
 
   if (!cliente) {
     throw new AppError("Cliente not found", 404);
   }
 
-  return clienteSchemaResponse.parse(cliente);
+  return listClienteSchemaResponse.parse(cliente);
 };
 
 export { listClienteService };

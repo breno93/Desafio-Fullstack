@@ -1,4 +1,5 @@
-import { z } from "zod";
+import { array, z } from "zod";
+import { contatoSchema } from "./contato.schema";
 
 // export const ClienteSchema = z.object({
 //   nomeCompleto: z.string().nonempty(),
@@ -13,10 +14,12 @@ const clienteSchema = z.object({
   email: z.string().email(),
   telefone: z.string(),
   password: z.string(),
+  contatos: z.array(contatoSchema),
 });
 
 const clienteSchemaRequest = clienteSchema.omit({
   id: true,
+  contatos: true,
 });
 
 const clienteSchemaUpdate = clienteSchema
@@ -27,11 +30,15 @@ const clienteSchemaUpdate = clienteSchema
 
 const clienteSchemaResponse = clienteSchema.omit({
   password: true,
+  contatos: true,
 });
+
+const listClienteSchemaResponse = z.array(clienteSchemaResponse);
 
 export {
   clienteSchema,
   clienteSchemaUpdate,
   clienteSchemaRequest,
   clienteSchemaResponse,
+  listClienteSchemaResponse,
 };
