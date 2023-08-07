@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.contatoRoutes = void 0;
+const express_1 = require("express");
+const contato_controller_1 = require("../controllers/contato.controller");
+const ensureAuth_middleware_1 = require("../middlewares/ensureAuth.middleware");
+const ensureDataIsValid_middleware_1 = require("../middlewares/ensureDataIsValid.middleware");
+const ensureIsOwner_middleware_1 = require("../middlewares/ensureIsOwner.middleware");
+const contato_schema_1 = require("../schemas/contato.schema");
+const contatoRoutes = (0, express_1.Router)();
+exports.contatoRoutes = contatoRoutes;
+contatoRoutes.post("", ensureAuth_middleware_1.ensureAuthMiddleware, (0, ensureDataIsValid_middleware_1.ensureDataIsValid)(contato_schema_1.contatoSchemaRequest), contato_controller_1.createContatoController);
+contatoRoutes.get("", ensureAuth_middleware_1.ensureAuthMiddleware, contato_controller_1.listContatoController);
+contatoRoutes.patch("/:id", ensureAuth_middleware_1.ensureAuthMiddleware, ensureIsOwner_middleware_1.ensureIsOwnerMiddleware, (0, ensureDataIsValid_middleware_1.ensureDataIsValid)(contato_schema_1.contatoSchemaUpdate), contato_controller_1.updateContatoController);
+contatoRoutes.delete("/:id", ensureAuth_middleware_1.ensureAuthMiddleware, ensureIsOwner_middleware_1.ensureIsOwnerMiddleware, contato_controller_1.deleteContatoController);

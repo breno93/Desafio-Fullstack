@@ -1,0 +1,15 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.clienteRoutes = void 0;
+const express_1 = require("express");
+const cliente_controller_1 = require("../controllers/cliente.controller");
+const ensureAuth_middleware_1 = require("../middlewares/ensureAuth.middleware");
+const ensureDataIsValid_middleware_1 = require("../middlewares/ensureDataIsValid.middleware");
+const ensureIsClientOwner_middleware_1 = require("../middlewares/ensureIsClientOwner.middleware");
+const cliente_schema_1 = require("../schemas/cliente.schema");
+const clienteRoutes = (0, express_1.Router)();
+exports.clienteRoutes = clienteRoutes;
+clienteRoutes.post("", (0, ensureDataIsValid_middleware_1.ensureDataIsValid)(cliente_schema_1.clienteSchemaRequest), cliente_controller_1.createClienteController);
+clienteRoutes.get("", ensureAuth_middleware_1.ensureAuthMiddleware, cliente_controller_1.listClienteController);
+clienteRoutes.patch("/:id", ensureAuth_middleware_1.ensureAuthMiddleware, ensureIsClientOwner_middleware_1.ensureIsClientOwnerMiddleware, (0, ensureDataIsValid_middleware_1.ensureDataIsValid)(cliente_schema_1.clienteSchemaUpdate), cliente_controller_1.updateClienteController);
+clienteRoutes.delete("/:id", ensureAuth_middleware_1.ensureAuthMiddleware, ensureIsClientOwner_middleware_1.ensureIsClientOwnerMiddleware, cliente_controller_1.deleteClienteController);
