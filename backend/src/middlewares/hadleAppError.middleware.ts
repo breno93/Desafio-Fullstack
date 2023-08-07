@@ -15,6 +15,7 @@ const handleAppError = (
   }
 
   if (error instanceof ZodError) {
+    console.log("Erro AQUI", error);
     return res.status(400).json({
       message: error.flatten().fieldErrors,
     });

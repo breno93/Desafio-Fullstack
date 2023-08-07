@@ -25,6 +25,6 @@ export class Contato {
   @CreateDateColumn()
   dataRegistro: Date;
 
-  @ManyToOne(() => Cliente)
+  @ManyToOne(() => Cliente, (cliente) => cliente.contatos)
   cliente: Cliente;
 }

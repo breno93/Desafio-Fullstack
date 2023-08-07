@@ -27,7 +27,8 @@ const createContatoService = async (
   }
 
   const contato = contatoRepo.create({
-    nome: data.nome,
+    ...data,
+    cliente,
   });
 
   await contatoRepo.save(contato);

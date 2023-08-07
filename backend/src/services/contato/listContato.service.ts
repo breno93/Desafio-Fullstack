@@ -2,12 +2,12 @@ import { AppDataSource } from "../../data-source";
 import { Cliente } from "../../entities/cliente.entities";
 import { Contato } from "../../entities/contato.entities";
 import { AppError } from "../../errors/AppError";
-import { TContatosResponse } from "../../interfaces/contato.interfaces";
-import { contatoSchemaResponse } from "../../schemas/contato.schema";
+import { TContatoResponse } from "../../interfaces/contato.interfaces";
+import { listContatoSchemaResponse } from "../../schemas/contato.schema";
 
 const listContatoService = async (
   userId: string
-): Promise<TContatosResponse> => {
+): Promise<TContatoResponse[]> => {
   const contatoRepo = AppDataSource.getRepository(Contato);
   const clienteRepo = AppDataSource.getRepository(Cliente);
 
@@ -17,19 +17,23 @@ const listContatoService = async (
     },
   });
 
+  console.log(cliente);
+
   if (!cliente) {
     throw new AppError("Cliente not found", 404);
   }
 
   const contato = await contatoRepo.find({
     where: {
-      cliente: cliente,
+      cliente: {
+        id: cliente.id,
+      },
     },
   });
 
   console.log(contato);
 
-  return contatoSchemaResponse.parse(contato);
+  return listContatoSchemaResponse.parse(contato);
 };
 
 export { listContatoService };
