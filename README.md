@@ -1,4 +1,4 @@
-💻 Backend da aplicação Desafio FullStack - O objetivo dessa aplicação é conseguir com que o Cliente que usar a plataforma, possa cadastrar seus contatos.
+💻  O objetivo dessa aplicação é conseguir com que o Cliente que usar a plataforma, possa cadastrar seus contatos.
     A API tem um total de 3 endpoints, o CLIENTE podendo se cadastrar, realizar login e cadastrar seus CONTATOS.
 
 
