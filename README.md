@@ -4,7 +4,7 @@ A API tem um total de 3 endpoints, o CLIENTE podendo se cadastrar, realizar logi
 
 Para começar, crie um clone deste repositório: git@github.com:breno93/Desafio-Fullstack.git
 
-Utilize o comando npm run dev
+Utilize os comandos: npm install / npm run dev
 
 Criação do CLIENTE(usuário)
 POST /cliente - FORMATO DA REQUISIÇÃO
